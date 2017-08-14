@@ -1,6 +1,6 @@
 # POV-Ray
 
-FROM node:boron
+FROM node:7
 
 RUN \
   date && apt-get update && apt-get -y install \
@@ -24,6 +24,8 @@ COPY package.json .
 
 COPY . . 
 
-EXPOSE 8080
+RUN npm install
+
+EXPOSE 80
 
 CMD ["npm", "start"]
