@@ -31,4 +31,8 @@ app.use(multer(multerOptions).single('file'))
 // after middleware, serve routes
 app.use('/', stl2image)
 
-module.exports = app
+app.set('port', process.env.PORT || 80)
+const server = app.listen(app.get('port'), () => {
+	console.log(`Express now running on PORT ${server.address().port}`)
+})
+
