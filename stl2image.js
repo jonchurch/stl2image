@@ -26,9 +26,9 @@ console.log(client)
 	const stlFilePath = STL_FILE.path
 	console.log({stlFilePath})
 
-	const imageKey = `${STL_FILE.filename.slice(0, -4)}`
+	var imageKey = `${STL_FILE.filename.slice(0, -4)}`
 
-	const imagePath = `${IMAGE_DESTINATION}/${imageKey}.png`
+	var imagePath = `${IMAGE_DESTINATION}/${imageKey}.png`
 	console.log
 
 	console.log({IMAGE_DESTINATION})
