@@ -32,11 +32,13 @@ module.exports = async (req, res, next) => {
 				} else {
 					// res.send(povOutput)
 					resolve(povOutput)
+
+					
 				}
 			})
 	});	
 
 	const povRes = await promise
-	res.send(povRes)
+	res.sendFile(imagePath)
 
 }
