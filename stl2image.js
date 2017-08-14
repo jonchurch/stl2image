@@ -2,6 +2,11 @@ const stl2image = require('stljs')
 const resolve = require('path').resolve
 const s3 = require('s3')
 
+
+// destination on disk to save the png we create
+const IMAGE_DESTINATION = resolve('./file_db/png/')
+
+module.exports = async (req, res, next) => {
 var client = s3.createClient({
   s3Options: {
     accessKeyId: process.env.ACCESS_KEY,
@@ -10,11 +15,7 @@ var client = s3.createClient({
     // See: http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/Config.html#constructor-property 
   },
 });
-
-// destination on disk to save the png we create
-const IMAGE_DESTINATION = resolve('./file_db/png/')
-
-module.exports = async (req, res, next) => {
+console.log(client)
 	console.log('☁️☁️☁️☁️  stljs req.file', req.file)
 	// get stl file from disk
 	// stl2image only works with files, instead of wasting time getting stuck
