@@ -24,7 +24,7 @@ COPY package.json .
 
 COPY . . 
 
-RUN npm install
+RUN mkdir file_db && mkdir file_db/stl file_db/png && npm install
 
 EXPOSE 80
 
