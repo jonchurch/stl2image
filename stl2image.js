@@ -2,6 +2,9 @@ const stl2image = require('stljs')
 const resolve = require('path').resolve
 const s3 = require('s3')
 
+console.log(process.env.ACCESS_TOKEN)
+console.log(process.env.SECRET_KEY)
+
 var client = s3.createClient({
   s3Options: {
     accessKeyId: process.env.ACCESS_KEY,
