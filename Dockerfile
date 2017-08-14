@@ -1,6 +1,6 @@
 # POV-Ray
 
-FROM node:boron
+FROM node:7
 
 RUN \
   date && apt-get update && apt-get -y install \
@@ -23,6 +23,8 @@ WORKDIR /usr/src/app
 COPY package.json .
 
 COPY . . 
+
+RUN npm install
 
 EXPOSE 8080
 
