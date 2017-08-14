@@ -1,4 +1,4 @@
-const stl2image = require('stl2image')
+const stl2image = require('stljs')
 const resolve = require('path').resolve
 
 // destination on disk to save the png we create
