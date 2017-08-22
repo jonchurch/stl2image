@@ -29,7 +29,10 @@ const multerOptions = {
 app.use(multer(multerOptions).single('file'))
 
 // after middleware, serve routes
-app.use('/', stl2image)
+app.use('/stl2image', stl2image)
+app.use('/test', (req, res) => {
+res.send('okay')
+})
 
 app.set('port', process.env.PORT || 80)
 const server = app.listen(app.get('port'), () => {
