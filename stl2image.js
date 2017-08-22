@@ -15,7 +15,6 @@ var client = s3.createClient({
   },
 });
 
-console.log(client)
 module.exports = async (req, res, next) => {
 	console.log('☁️☁️☁️☁️  stljs req.file', req.file)
 	// get stl file from disk
@@ -66,8 +65,9 @@ module.exports = async (req, res, next) => {
 					console.log("progress", uploader.progressMd5Amount,
 								uploader.progressAmount, uploader.progressTotal);
 					});
-					uploader.on('end', function(data) {
+					uploader.on('end', function(data, res) {
 						console.log({data})
+						console.log({res})
 					console.log("done uploading");
 					});
 
