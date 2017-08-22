@@ -2,7 +2,7 @@ const stl2image = require('stljs')
 const resolve = require('path').resolve
 const s3 = require('s3')
 
-
+const bucket_url = process.env.BUCKET_URL
 // destination on disk to save the png we create
 const IMAGE_DESTINATION = resolve('./file_db/png/')
 
@@ -60,6 +60,7 @@ module.exports = async (req, res, next) => {
 					var uploader = client.uploadFile(params);
 					uploader.on('error', function(err) {
 					console.error("unable to upload:", err.stack);
+						reject(err)
 					});
 					uploader.on('progress', function() {
 					console.log("progress", uploader.progressMd5Amount,
@@ -68,6 +69,7 @@ module.exports = async (req, res, next) => {
 					uploader.on('end', function(data, res) {
 						console.log({data})
 						console.log({res})
+						resolve(data)
 					console.log("done uploading");
 					});
 
@@ -77,6 +79,6 @@ module.exports = async (req, res, next) => {
 	});	
 
 	const povRes = await promise
-	res.sendFile(imagePath)
+	res.send(`${bucket_url}/${imageKey}`)
 
 }
