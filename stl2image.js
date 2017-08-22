@@ -6,7 +6,6 @@ const s3 = require('s3')
 // destination on disk to save the png we create
 const IMAGE_DESTINATION = resolve('./file_db/png/')
 
-module.exports = async (req, res, next) => {
 var client = s3.createClient({
   s3Options: {
     accessKeyId: process.env.ACCESS_KEY,
@@ -15,7 +14,9 @@ var client = s3.createClient({
     // See: http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/Config.html#constructor-property 
   },
 });
+
 console.log(client)
+module.exports = async (req, res, next) => {
 	console.log('☁️☁️☁️☁️  stljs req.file', req.file)
 	// get stl file from disk
 	// stl2image only works with files, instead of wasting time getting stuck
@@ -52,6 +53,7 @@ console.log(client)
 					s3Params: {
 						Bucket: "farlab-images",
 						Key: imageKey,
+						ACL: 'public-read'
 						// other options supported by putObject, except Body and ContentLength. 
 						// See: http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#putObject-property 
 					},
@@ -64,7 +66,8 @@ console.log(client)
 					console.log("progress", uploader.progressMd5Amount,
 								uploader.progressAmount, uploader.progressTotal);
 					});
-					uploader.on('end', function() {
+					uploader.on('end', function(data) {
+						console.log({data})
 					console.log("done uploading");
 					});
 
