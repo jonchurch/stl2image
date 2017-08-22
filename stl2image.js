@@ -15,7 +15,7 @@ var client = s3.createClient({
   },
 });
 
-module.exports = async (req, res, next) => {
+module.exports = (req, res) => {
 	console.log('☁️☁️☁️☁️  stljs req.file', req.file)
 	// get stl file from disk
 	// stl2image only works with files, instead of wasting time getting stuck
@@ -34,7 +34,6 @@ module.exports = async (req, res, next) => {
 	console.log({IMAGE_DESTINATION})
 	console.log({imagePath})
 
-	const promise = new Promise(function (resolve, reject) {
 		stl2image.imageify(
 			stlFilePath,
 			{width: 200, height: 200, dst: imagePath },
@@ -60,25 +59,22 @@ module.exports = async (req, res, next) => {
 					var uploader = client.uploadFile(params);
 					uploader.on('error', function(err) {
 					console.error("unable to upload:", err.stack);
-						reject(err)
 					});
 					uploader.on('progress', function() {
 					console.log("progress", uploader.progressMd5Amount,
 								uploader.progressAmount, uploader.progressTotal);
 					});
-					uploader.on('end', function(data, res) {
+					uploader.on('end', function(data) {
 						console.log({data})
 						console.log({res})
-						resolve(data)
+						res.send(`${bucket_url}/${imageKey}`)
 					console.log("done uploading");
 					});
 
 					
 				}
 			})
-	});	
 
 	const povRes = await promise
-	res.send(`${bucket_url}/${imageKey}`)
 
 }
