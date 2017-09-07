@@ -75,6 +75,4 @@ module.exports = async (req, res) => {
 				}
 			})
 
-	const povRes = await promise
-
 }
