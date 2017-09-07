@@ -15,7 +15,7 @@ var client = s3.createClient({
   },
 });
 
-module.exports = (req, res) => {
+module.exports = async (req, res) => {
 	console.log('☁️☁️☁️☁️  stljs req.file', req.file)
 	// get stl file from disk
 	// stl2image only works with files, instead of wasting time getting stuck
